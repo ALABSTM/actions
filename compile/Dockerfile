@@ -1,6 +1,10 @@
 # Container image that runs your code
 FROM ubuntu:latest
 
+# Install prerequisites (WGET utility)
+#  NOTE: --yes 'Automatic yes to prompts during install'
+RUN apt-get update --quiet=3 && apt-get install --quiet=3 --yes wget
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 

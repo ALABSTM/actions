@@ -13,8 +13,9 @@ readonly  INCLUDES="-I./Drivers/CMSIS/Include -I$CMSIS_DIR/Include -I$HAL_DIR/In
 
 # INSTALL REQUIRED PACKAGES ----------------------------------------------------
 
-# Default compiler seems to be "arm-linux-gcc".
-#  Needed one is "arm-eabi-gcc". Install it...
+# Download "arm-eabi-gcc" compiler and install it...
+
+# Create a dedicated folder to extract the archive into
 mkdir ./Utilities/PC_Software/arm-eabi-gcc-toolchain
 cd    ./Utilities/PC_Software/arm-eabi-gcc-toolchain
 # wget 'get from the Web', -O filename 'specify name of destination file'
@@ -22,8 +23,8 @@ wget -O gcc.tar.bz2 $GCC_URL
 # tar 'tape archiver', -j 'use Bzip compression', -x 'eXtract archive',
 #  -f 'use File given as parameter'
 tar -jxf gcc.tar.bz2 --strip=1
-# save path to executable of the compiler in PATH variable and broaden its scope
-#  to all environments 
+# Save the path to executable of the compiler in PATH variable and broaden its
+#  scope to all environments
 export PATH=$PWD/bin:$PATH
 cd -
 # in case arm-none-eabi-gcc compiler is not installed, install it.
