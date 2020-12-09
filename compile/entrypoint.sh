@@ -7,9 +7,9 @@ readonly  STM32_SERIES="$2"
 readonly  DEFINES="$3"
 readonly  OPTIONS="$4"
 
-readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32$STM32_SERIESxx"
-readonly  HAL_DIR="./Drivers/STM32$STM32_SERIESxx_HAL_Driver"
-readonly  INCLUDES="-I./Drivers/CMSIS/Include -I$CMSIS_DIR/Include -I$HAL_DIR/Inc -I./CI/build"
+readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32${STM32_SERIES}xx"
+readonly  HAL_DIR="./Drivers/STM32${STM32_SERIES}xx_HAL_Driver"
+readonly  INCLUDES="-I./Drivers/CMSIS/Include -I${CMSIS_DIR}/Include -I${HAL_DIR}/Inc -I./CI/build"
 
 # INSTALL REQUIRED PACKAGES ----------------------------------------------------
 
