@@ -1,0 +1,29 @@
+# action.yml
+
+name: 'Compilation'
+description: 'Compiles source files'
+inputs:
+  gcc-url:
+    description: 'URL to download the arm-none-eabi-gcc compiler'
+    required: false
+    default: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2?revision=bc2c96c0-14b5-4bb4-9f18-bceb4050fee7?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,7-2018-q2-update'
+  stm32-series:
+    description: 'Identifier of the STM32 series whose sources are to be compiled (e.g. F4, G0, H7)'
+    required: true
+  define-list:
+    description: 'List of definitions (-D) to pass as arguments to the GCC command'
+    required: true
+  option-list:
+    description: 'List of option (-m) to pass as arguments to the GCC command'
+    required: true
+outputs:
+  compile-result: # id of output
+    description: 'File name of the compile result'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.gcc-url }}
+    - ${{ inputs.stm32-series }}
+    - ${{ inputs.define-list }}
+    - ${{ inputs.option-list }}
