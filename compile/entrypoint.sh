@@ -32,9 +32,14 @@ arm-none-eabi-gcc --version
 
 # LAUNCH COMPILATION -----------------------------------------------------------
 
+# Copy file stm32$..xx_hal_conf_template.h and rename it stm32$..xx_hal_conf.h
+#  as needed for the compilation step.
+#  NOTE: ${STM32_SERIES,,} to convert to lower case.
+cp "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf_template.h" "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf.h"
+
 # Each iteration, get current source file name in variable "source" to use it
 #  with "echo" and "gcc" commands.
-for source in "$HAL_DIR/Src"/*.c
+for source in "${HAL_DIR}/Src"/*.c
 do
     # Log message to the user.
     echo "Compiling $source"
