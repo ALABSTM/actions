@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 # Read the arguments passed through
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
