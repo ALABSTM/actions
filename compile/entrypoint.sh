@@ -16,8 +16,9 @@ readonly  INCLUDES="-I./Drivers/CMSIS/Include -I${CMSIS_DIR}/Include -I${HAL_DIR
 # Download "arm-eabi-gcc" compiler and install it...
 
 # Create a dedicated folder to extract the archive into
-mkdir ./Utilities/PC_Software/arm-eabi-gcc-toolchain
-cd    ./Utilities/PC_Software/arm-eabi-gcc-toolchain
+# mkdir 'make directory', -p 'make parent directories as needed'
+mkdir -p ./Utilities/PC_Software/arm-eabi-gcc-toolchain
+cd       ./Utilities/PC_Software/arm-eabi-gcc-toolchain
 # wget 'get from the Web', -q 'quiet, avoid printing log',
 #                          -O filename 'specify name of destination file'
 wget -q -O gcc.tar.bz2 $GCC_URL
