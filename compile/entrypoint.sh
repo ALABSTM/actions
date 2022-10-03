@@ -18,10 +18,11 @@ readonly  INCLUDES="-I./Drivers/CMSIS/Include -I${CMSIS_DIR}/Include -I${HAL_DIR
 # Create a dedicated folder to extract the archive into
 mkdir ./Utilities/PC_Software/arm-eabi-gcc-toolchain
 cd    ./Utilities/PC_Software/arm-eabi-gcc-toolchain
-# wget 'get from the Web', -O filename 'specify name of destination file'
-wget -O gcc.tar.bz2 $GCC_URL
+# wget 'get from the Web', -q 'quiet, avoid printing log',
+#                          -O filename 'specify name of destination file'
+wget -q -O gcc.tar.bz2 $GCC_URL
 # tar 'tape archiver', -j 'use Bzip compression', -x 'eXtract archive',
-#  -f 'use File given as parameter'
+#                      -f 'use File given as parameter'
 tar -jxf gcc.tar.bz2 --strip=1
 # Save the path to executable of the compiler in PATH variable and broaden its
 #  scope to all environments
