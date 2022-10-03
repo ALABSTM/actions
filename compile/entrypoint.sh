@@ -4,7 +4,6 @@
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
 readonly  GCC_URL="$1"
 readonly  STM32_SERIES="$2"
-readonly  DEFINES="$3"
 readonly  OPTIONS="$4"
 
 readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32${STM32_SERIES}xx"
@@ -39,14 +38,28 @@ arm-none-eabi-gcc --version
 #  NOTE: ${STM32_SERIES,,} to convert to lower case.
 cp "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf_template.h" "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf.h"
 
-# Each iteration, get current source file name in variable "source" to use it
-#  with "echo" and "gcc" commands.
-for source in "${HAL_DIR}/Src"/*.c
+# Point to the CMSIS Device Include directory where the header files
+cd "${CMSIS_DIR}/Include"
+
+# Get the different devices' part-numbers from the header filenames and iterate upon
+#  NOTE: 'sed' Stream Editor,
+#         '$' is the end-of-line anchor, not to match .h in the middle of a filename.
+for device in `ls -d stm32* | grep -v stm32${STM32_SERIES}xx.h | sed -e 's/\.h$//'`
 do
-    # Log message to the user.
-    echo "Compiling $source"
-    # Use option -c to stop build at compile- or assemble-level.
-    arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
-    # In case compilation fails, stop the loop and do not compile remaining files.
-    if [ $? != 0 ] ; then exit 1; fi
+    # Get the current device's part-number in a variable
+    #  NOTE: ${device^^} to convert to upper case.
+    DEFINES='-D'${device^^}
+    echo "Compiling sources for device ${device^^} **************************" ;
+    # For each source file, get current source file name in variable "source"
+    #  to use it with "echo" and "gcc" commands.
+    for source in "${HAL_DIR}/Src"/*.c
+    do
+        # Log message to the user.
+        #   NOTE: '-e' to enable interpretation of backslash escapes.
+        echo -e "\tCompiling " $source
+        # Use option -c to stop build at compile- or assemble-level.
+        arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
+        # In case compilation fails, stop the loop and do not compile remaining files.
+        if [ $? != 0 ] ; then exit 1; fi
+    done
 done
