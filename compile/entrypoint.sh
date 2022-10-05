@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
 readonly  GCC_URL="$1"
 readonly  STM32_SERIES="$2"
-readonly  OPTIONS="$4"
+readonly  OPTIONS="$3"
 
 readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32${STM32_SERIES}xx"
 readonly  HAL_DIR="./Drivers/STM32${STM32_SERIES}xx_HAL_Driver"
@@ -48,9 +48,10 @@ cp "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf_template.h" "${HAL_DIR}/Inc
 cd "${CMSIS_DIR}/Include"
 
 # Get the different devices' part-numbers from the header filenames
+#  NOTE: ${STM32_SERIES,,} to convert to lower case.
 #  NOTE: 'sed' Stream Editor,
 #         '$' is the end-of-line anchor, not to match .h in the middle of a filename.
-devices=`ls -d stm32* | grep -v stm32${STM32_SERIES}xx.h | sed -e 's/\.h$//'`
+devices=`ls -d stm32* | grep -v stm32${STM32_SERIES,,}xx.h | sed -e 's/\.h$//'`
 
 # Point back to the repository's root
 cd -
