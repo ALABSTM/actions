@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# COLORS -----------------------------------------------------------------------
+
+NOCOLOR='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+
 # Read the arguments passed through
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
 readonly  GCC_URL="$1"
@@ -41,10 +47,16 @@ cp "${HAL_DIR}/Inc/stm32${STM32_SERIES,,}xx_hal_conf_template.h" "${HAL_DIR}/Inc
 # Point to the CMSIS Device Include directory where the header files
 cd "${CMSIS_DIR}/Include"
 
-# Get the different devices' part-numbers from the header filenames and iterate upon
+# Get the different devices' part-numbers from the header filenames
 #  NOTE: 'sed' Stream Editor,
 #         '$' is the end-of-line anchor, not to match .h in the middle of a filename.
-for device in `ls -d stm32* | grep -v stm32${STM32_SERIES}xx.h | sed -e 's/\.h$//'`
+devices=`ls -d stm32* | grep -v stm32${STM32_SERIES}xx.h | sed -e 's/\.h$//'`
+
+# Point back to the repository's root
+cd -
+
+# Iterate upon the different devices' part-numbers
+for device in $devices
 do
     # Get the current device's part-number in a variable
     #  NOTE: ${device^^} to convert to upper case.
@@ -60,6 +72,6 @@ do
         # Use option -c to stop build at compile- or assemble-level.
         arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
         # In case compilation fails, stop the loop and do not compile remaining files.
-        if [ $? != 0 ] ; then exit 1; fi
+        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; exit 1; else echo -e "\t${GREEN}OK"; fi
     done
 done
