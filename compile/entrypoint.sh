@@ -72,7 +72,8 @@ do
         echo -e "\tCompiling " $source
         # Use option -c to stop build at compile- or assemble-level.
         arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
-        # In case compilation fails, stop the loop and do not compile remaining files.
-        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; exit 1; else echo -e "\t${GREEN}OK"; fi
+        # In case compilation fails, abort it for the current part-number and
+        #  start it for the next one.
+        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; break; else echo -e "\t${GREEN}OK"; fi
     done
 done
