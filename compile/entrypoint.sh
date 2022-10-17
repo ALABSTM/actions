@@ -56,6 +56,9 @@ devices=`ls -d stm32* | grep -v stm32${STM32_SERIES,,}xx.h | sed -e 's/\.h$//'`
 # Point back to the repository's root
 cd -
 
+# Initialize the job status
+status=0
+
 # Iterate upon the different devices' part-numbers
 for device in $devices
 do
@@ -74,6 +77,9 @@ do
         arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
         # In case compilation fails, abort it for the current part-number and
         #  start it for the next one.
-        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; break; else echo -e "\t${GREEN}OK"; fi
+        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; status=1; break; else echo -e "\t${GREEN}OK"; fi
     done
 done
+
+# Return error code in case of failure
+if [ $status != 0 ] ; then exit 1; fi
