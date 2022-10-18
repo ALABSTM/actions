@@ -30,7 +30,7 @@ wget -q -O gcc.tar.bz2 $GCC_URL
 # tar 'tape archiver', -j 'use Bzip compression', -x 'eXtract archive',
 #                      -f 'use File given as parameter'
 tar -jxf gcc.tar.bz2 --strip=1
-# Save the path to executable of the compiler in PATH variable and broaden its
+# Save the path to compiler's executable file in PATH variable and broaden its
 #  scope to all environments
 export PATH=$PWD/bin:$PATH
 cd -
@@ -49,9 +49,15 @@ cd "${CMSIS_DIR}/Include"
 
 # Get the different devices' part-numbers from the header filenames
 #  NOTE: ${STM32_SERIES,,} to convert to lower case.
-#  NOTE: 'sed' Stream Editor,
-#         '$' is the end-of-line anchor, not to match .h in the middle of a filename.
-devices=`ls -d stm32* | grep -v stm32${STM32_SERIES,,}xx.h | sed -e 's/\.h$//'`
+#  NOTE: grep options, -P 'pattern is a Perl regex', -o 'output result'
+#  NOTE: regex, (?<=\() '(?<=<char>) --> pick what is found after a <char> character, with <char> being an opening parehtesis --> "\("'
+#               (?=\))  '(?=<char>)  --> pick what is found before a <char> character, with <char> being a closing parehtesis --> "\)"'
+#               .*?     '. --> any character, * --> 0 or more occurences, ? --> 0 or 1 occurrence (of .*)'
+# NOTE: in the regex, the ? in .*? ensures each sequence of characters in an expression like "(<string_a>) (<string_b>)" are extracted separately.
+#       - .*? --> <string_a>
+#                 <string_b>
+#       - .*  --> <string_a> (<string_b>)
+devices=`cat "stm32${STM32_SERIES,,}xx.h" | grep "\!defined (STM32${STM32_SERIES}.\+)" | grep -Po "(?<=\().*?(?=\))"`
 
 # Point back to the repository's root
 cd -
@@ -63,9 +69,8 @@ status=0
 for device in $devices
 do
     # Get the current device's part-number in a variable
-    #  NOTE: ${device^^} to convert to upper case.
-    DEFINES='-D'${device^^}
-    echo "Compiling sources for device ${device^^} **************************" ;
+    DEFINES='-D'${device}
+    echo "Compiling sources for device ${device} **************************" ;
     # For each source file, get current source file name in variable "source"
     #  to use it with "echo" and "gcc" commands.
     for source in "${HAL_DIR}/Src"/*.c
