@@ -82,7 +82,7 @@ do
         arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
         # In case compilation fails, abort it for the current part-number and
         #  start it for the next one.
-        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; status=1; break; else echo -e "\t${GREEN}OK"; fi
+        if [ $? != 0 ] ; then echo -e "\t${RED}KO"; status=1; else echo -e "\t${GREEN}OK"; fi
     done
 done
 
