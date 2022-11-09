@@ -69,7 +69,7 @@ status=0
 for device in $devices
 do
     # Get the current device's part-number in a variable
-    DEFINES='-D'${device}
+    DEFINES='-DUSE_HAL_DRIVER -D'${device}
     echo "Compiling sources for device ${device} **************************" ;
     # For each source file, get current source file name in variable "source"
     #  to use it with "echo" and "gcc" commands.
@@ -79,7 +79,7 @@ do
         #   NOTE: '-e' to enable interpretation of backslash escapes.
         echo -e "\tCompiling " $source
         # Use option -c to stop build at compile- or assemble-level.
-        arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source
+        arm-none-eabi-gcc $OPTIONS $DEFINES $INCLUDES -c $source -o ${source}.obj
         # In case compilation fails, abort it for the current part-number and
         #  start it for the next one.
         if [ $? != 0 ] ; then echo -e "\t${RED}KO"; status=1; else echo -e "\t${GREEN}OK"; fi
