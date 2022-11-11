@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
 readonly  GCC_URL="$1"
 readonly  STM32_SERIES="$2"
-readonly  OPTIONS="$3" + " -mthumb -std=gnu11 -Wall -c"
+readonly  OPTIONS="$3 -mthumb -std=gnu11 -Wall -c"
 
 readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32${STM32_SERIES}xx"
 readonly  HAL_DIR="./Drivers/STM32${STM32_SERIES}xx_HAL_Driver"
