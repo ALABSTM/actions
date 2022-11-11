@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 #  <calling_repo>/.github/workflows/<workflow>/action.yml
 readonly  GCC_URL="$1"
 readonly  STM32_SERIES="$2"
-readonly  OPTIONS="$3"
+readonly  OPTIONS="$3" + " -mthumb -std=gnu11 -Wall -c"
 
 readonly  CMSIS_DIR="./Drivers/CMSIS/Device/ST/STM32${STM32_SERIES}xx"
 readonly  HAL_DIR="./Drivers/STM32${STM32_SERIES}xx_HAL_Driver"
@@ -49,7 +49,7 @@ cd "${CMSIS_DIR}/Include"
 
 # Get the different devices' part-numbers from the header filenames
 #  NOTE: ${STM32_SERIES,,} to convert to lower case.
-#  NOTE: grep options, -P 'pattern is a Perl regex', -o 'output result'
+#  NOTE: grep options, -P 'pattern is a Perl regex', -o 'to extract only words matching the pattern instead of the whole line'
 #  NOTE: regex, (?<=\() '(?<=<char>) --> pick what is found after a <char> character, with <char> being an opening parehtesis --> "\("'
 #               (?=\))  '(?=<char>)  --> pick what is found before a <char> character, with <char> being a closing parehtesis --> "\)"'
 #               .*?     '. --> any character, * --> 0 or more occurences, ? --> 0 or 1 occurrence (of .*)'

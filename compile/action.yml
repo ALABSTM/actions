@@ -10,9 +10,6 @@ inputs:
   stm32-series:
     description: 'Identifier of the STM32 series whose sources are to be compiled (e.g. F4, G0, H7)'
     required: true
-  define-list:
-    description: 'List of definitions (-D) to pass as arguments to the GCC command'
-    required: true
   option-list:
     description: 'List of option (-m) to pass as arguments to the GCC command'
     required: true
@@ -25,5 +22,4 @@ runs:
   args:
     - ${{ inputs.gcc-url }}
     - ${{ inputs.stm32-series }}
-    - ${{ inputs.define-list }}
     - ${{ inputs.option-list }}
