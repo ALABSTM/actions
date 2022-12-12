@@ -70,7 +70,7 @@ for device in $devices
 do
     # Get the current device's part-number in a variable
     DEFINES='-DUSE_HAL_DRIVER -D'${device}
-    echo "Compiling sources for device ${device} **************************" ;
+    echo "Compiling sources for device ${device} ****************************************************" ;
     # For each source file, get current source file name in variable "source"
     #  to use it with "echo" and "gcc" commands.
     for source in "${HAL_DIR}/Src"/*.c
