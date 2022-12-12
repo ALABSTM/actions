@@ -6,7 +6,7 @@ inputs:
   gcc-url:
     description: 'URL to download the arm-none-eabi-gcc compiler'
     required: false
-    default: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/7-2018q2/gcc-arm-none-eabi-7-2018-q2-update-linux.tar.bz2?revision=bc2c96c0-14b5-4bb4-9f18-bceb4050fee7?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,7-2018-q2-update'
+    default: 'https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2?rev=78196d3461ba4c9089a67b5f33edf82a&hash=D484B37FF37D6FC3597EBE2877FB666A41D5253B'
   stm32-series:
     description: 'Identifier of the STM32 series whose sources are to be compiled (e.g. F4, G0, H7)'
     required: true
