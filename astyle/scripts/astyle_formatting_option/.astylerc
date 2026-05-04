@@ -1,0 +1,28 @@
+# STMicroelectronics code style definition file for Astyle
+
+# Don't create backup files, let git handle it
+suffix=none
+
+# ANSI style
+style=ansi
+
+# 2 spaces, convert tabs to spaces
+indent=spaces=2
+convert-tabs
+lineend=linux
+
+# Indent switches and cases
+indent-switches
+min-conditional-indent=0
+max-instatement-indent=60
+
+# Remove spaces in and around parentheses
+unpad-paren
+
+# Insert a space after if, while, for, and around operators
+pad-header
+pad-oper
+
+# Pointer/reference operators go next to the name (on the right)
+align-pointer=name
+
