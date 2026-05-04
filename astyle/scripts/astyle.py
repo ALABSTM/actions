@@ -152,13 +152,13 @@ def main():
     # global changed_files_path
 
     if args.root:
-        src_path = os.path.realpath(args.root)
+        src_path = os.path.abspath(args.root)
 
     if args.definition:
-        def_path = os.path.realpath(args.definition)
+        def_path = os.path.abspath(args.definition)
 
     if args.ignore:
-        ignore_path = os.path.realpath(args.ignore)
+        ignore_path = os.path.abspath(args.ignore)
         
     print("Source files path:", src_path)
     print("A-Style ignore file path:", ignore_path)
