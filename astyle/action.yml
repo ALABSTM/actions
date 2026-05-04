@@ -1,5 +1,5 @@
 # action.yml
-name: 'STM32duino Astyle Check'
+name: 'Artistic Style Check'
 description: 'Runs Astyle on source code'
 inputs:
   source-root-path:

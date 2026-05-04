@@ -72,8 +72,6 @@ def checkAstyle():
 
 # Find all files in source root path
 def find_files():
-
-
     try:        
         output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1'], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
@@ -162,6 +160,9 @@ def main():
     if args.ignore:
         ignore_path = os.path.realpath(args.ignore)
         
+    print("Source path:", src_path)
+    print("Ignore path:", ignore_path)
+    print("Definition path:", def_path)
 
     checkPath(src_path, "Source root path does not exist!")
     checkPath(def_path, "Code style definition file does not exist!")
