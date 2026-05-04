@@ -17,9 +17,9 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 ignore_filename = ".astyleignore"
 def_filename = ".astylerc"
 astyle_out_filename = "astyle.out"
-src_path = "os.getcwd()"
-ignore_path = os.path.join(script_path, ignore_filename)
-def_path = os.path.join(script_path, def_filename)
+src_path = os.getcwd()
+ignore_path = os.path.join(script_path, "astyle_formatting_option", ignore_filename)
+def_path = os.path.join(script_path, "astyle_formatting_option", def_filename)
 astyle_out_path = astyle_out_filename
 
 astyle_major = 3
