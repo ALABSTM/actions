@@ -1,0 +1,10 @@
+# action.yml
+
+name: 'diff'
+description: 'return the list of files that have been changed within a commit'
+outputs:
+  diff-result: # id of output
+    description: 'File name of the diff result'
+runs:
+  using: 'node12'
+  main: 'index.js'
