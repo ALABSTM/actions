@@ -13,6 +13,15 @@ echo ::set-output name=astyle-result::$OUTPUT_FILE
 # git --no-pager log -p -1 | grep "diff --git " | awk -F "a/" '{print $NF}' | cut -d' ' -f1 | tee --append diff-result
 # echo -e "End of List"
 
+echo "ARG1: $1"
+echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+echo "entrypoint.sh starting point:"
+pwd
+echo "Listing current directory:"
+ls -la
+echo "Listing workspace directory:"
+ls -la /github/workspace
+
 python3 /scripts/astyle.py -r "$ROOT_SRC_PATH" -i "$IGNORE_LIST_PATH" -d "$ASTYLE_DEFINITION_PATH" || {
   exit 1
 }
