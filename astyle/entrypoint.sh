@@ -1,15 +1,11 @@
 #!/bin/bash
 
-ROOT_SRC_PATH="$1"
+ROOT_SRC_PATH="${1:-$GITHUB_WORKSPACE}"
 # readonly IGNORE_LIST_PATH="$2"
 # readonly ASTYLE_DEFINITION_PATH="$3"
 
 readonly OUTPUT_FILE="astyle-result.txt"
 echo ::set-output name=astyle-result::$OUTPUT_FILE
-
-if [ -z "$1" ]; then
-  ROOT_SRC_PATH="."
-fi
 
 # diff-result=$(mktemp --suffix ".txt")
 
