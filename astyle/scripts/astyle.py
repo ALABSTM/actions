@@ -160,9 +160,10 @@ def main():
     if args.ignore:
         ignore_path = os.path.realpath(args.ignore)
         
-    print("Source path:", src_path)
-    print("Ignore path:", ignore_path)
-    print("Definition path:", def_path)
+    print("Source files path:", src_path)
+    print("A-Style ignore file path:", ignore_path)
+    print("A-Style definition file path:", def_path)
+    print("Current Working Directory:", os.getcwd())
 
     checkPath(src_path, "Source root path does not exist!")
     checkPath(def_path, "Code style definition file does not exist!")
