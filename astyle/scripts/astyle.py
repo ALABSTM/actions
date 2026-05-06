@@ -78,6 +78,10 @@ def find_files():
     before = os.environ.get("GITHUB_EVENT_BEFORE")
     after = os.environ.get("GITHUB_SHA")
 
+    print("GITHUB_EVENT_BEFORE =", repr(before))
+    print("GITHUB_SHA          =", repr(after))
+    print("-------------------------------------")
+
     try:        
         output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', before, after], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
