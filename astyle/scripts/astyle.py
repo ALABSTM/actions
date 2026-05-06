@@ -160,10 +160,13 @@ def main():
     if args.ignore:
         ignore_path = os.path.abspath(args.ignore)
         
-    print("Source files path:", src_path)
-    print("A-Style ignore file path:", ignore_path)
-    print("A-Style definition file path:", def_path)
+    print("-------------------------------------")
+    print("## From PY file...")
+    print("Source files path:", repr(src_path))
+    print("A-Style ignore file path:", repr(ignore_path))
+    print("A-Style definition file path:", repr(def_path))
     print("Current Working Directory:", os.getcwd())
+    print("-------------------------------------")
 
     checkPath(src_path, "Source root path does not exist!")
     checkPath(def_path, "Code style definition file does not exist!")

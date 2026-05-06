@@ -14,6 +14,7 @@ echo ::set-output name=astyle-result::$OUTPUT_FILE
 # echo -e "End of List"
 
 echo "-------------------------------------"
+echo "## From SH file..."
 echo "ARG1: $1"
 echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
 echo "entrypoint.sh starting point:"
@@ -25,7 +26,6 @@ ls -la /github/workspace
 echo "-------------------------------------"
 echo "Python command to run:"
 echo "python3 /scripts/astyle.py -r \"$ROOT_SRC_PATH\" -i \"$IGNORE_LIST_PATH\" -d \"$ASTYLE_DEFINITION_PATH\""
-echo "-------------------------------------"
 
 python3 /scripts/astyle.py -r "$ROOT_SRC_PATH" -i "$IGNORE_LIST_PATH" -d "$ASTYLE_DEFINITION_PATH" || {
   exit 1
