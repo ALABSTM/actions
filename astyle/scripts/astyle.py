@@ -75,15 +75,15 @@ def find_files():
     # GitHub Actions environment variables:
     # - GITHUB_EVENT_BEFORE: commit SHA before the push
     # - GITHUB_SHA: commit SHA that triggered the workflow
-    before = os.environ.get("GITHUB_EVENT_BEFORE")
-    after = os.environ.get("GITHUB_SHA")
+    sha_commit_before_push = os.environ.get("GITHUB_EVENT_BEFORE")
+    sha_commit_after_push = os.environ.get("GITHUB_SHA")
 
-    print("GITHUB_EVENT_BEFORE =", repr(before))
-    print("GITHUB_SHA          =", repr(after))
+    print("GITHUB_EVENT_BEFORE =", repr(sha_commit_before_push))
+    print("GITHUB_SHA          =", repr(sha_commit_after_push))
     print("-------------------------------------")
 
     try:        
-        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1', after], stderr=subprocess.STDOUT)
+        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1', sha_commit_after_push], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
 
         for modif in  changed_files :
