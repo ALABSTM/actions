@@ -70,6 +70,20 @@ def checkAstyle():
         sys.exit(1)
 
 
+def show_last_commits():
+    try:
+        output = subprocess.check_output(
+            ['git', '-C', src_path, 'log', '-n', '5', '--format=%H'],
+            stderr=subprocess.STDOUT
+        )
+        print("Last 5 commits:")
+        print(output.decode("utf-8"))
+        print("-------------------------------------")
+    except subprocess.CalledProcessError as e:
+        print("Could not read git log, rc=", e.returncode, "output=", e.output)
+        sys.exit(1)
+
+
 # Find all files in source root path
 def find_files():
     # GitHub Actions environment variables:
@@ -83,7 +97,8 @@ def find_files():
     print("-------------------------------------")
 
     try:        
-        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1', sha_commit_after_push], stderr=subprocess.STDOUT)
+        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', sha_commit_after_push], stderr=subprocess.STDOUT)
+        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', sha_commit_after_push], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
 
         for modif in  changed_files :
@@ -178,6 +193,7 @@ def main():
     print("Current Working Directory:", os.getcwd())
     print("-------------------------------------")
 
+    show_last_commits()
     checkPath(src_path, "Source root path does not exist!")
     checkPath(def_path, "Code style definition file does not exist!")
     checkPath(ignore_path, "Ignore file does not exist!")
