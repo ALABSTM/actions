@@ -72,8 +72,14 @@ def checkAstyle():
 
 # Find all files in source root path
 def find_files():
+    # GitHub Actions environment variables:
+    # - GITHUB_EVENT_BEFORE: commit SHA before the push
+    # - GITHUB_SHA: commit SHA that triggered the workflow
+    before = os.environ.get("GITHUB_EVENT_BEFORE")
+    after = os.environ.get("GITHUB_SHA")
+
     try:        
-        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1'], stderr=subprocess.STDOUT)
+        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', before, after], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
 
         for modif in  changed_files :
