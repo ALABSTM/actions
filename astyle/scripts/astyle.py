@@ -83,7 +83,7 @@ def find_files():
     print("-------------------------------------")
 
     try:        
-        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', before, after], stderr=subprocess.STDOUT)
+        output = subprocess.check_output(['git', '-C', src_path, 'diff', '--name-only', 'HEAD~1', after], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
 
         for modif in  changed_files :
