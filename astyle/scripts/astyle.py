@@ -33,10 +33,12 @@ exclude_list = []
 
 
 # Check if path exists
-def checkPath(path, msg):
+def checkPath(path, msg_ok, msg_nok):
     if not os.path.exists(path):
-        print(msg)
+        print(msg_nok)
         sys.exit(1)
+    else:
+        print(msg_ok)
 
 
 # Check Astyle exists and version
@@ -191,9 +193,11 @@ def main():
     print("-------------------------------------")
 
     # show_last_commits()
-    checkPath(src_path, "Source root path does not exist!")
-    checkPath(def_path, "Code style definition file does not exist!")
-    checkPath(ignore_path, "Ignore file does not exist!")
+    print("-------------------------------------")
+    checkPath(src_path, "Source root path checked OK.", "Source root path does not exist!")
+    checkPath(def_path, "Code style definition file checked OK.", "Code style definition file does not exist!")
+    checkPath(ignore_path, "Ignore file checked OK.", "Ignore file does not exist!")
+    print("-------------------------------------")
     checkAstyle()
     try:
         os.remove(astyle_out_path)
