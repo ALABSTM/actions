@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 # File name            : astyle.py
-# Author               : Frederic PILLON <frederic.pillon@st.com>
+# Author(s)            : Frederic PILLON <frederic.pillon@st.com> ; Ali LABBENE <ali.labbene@st.com>
 # Created              : 11/16/2018
+# Modified             : 07/05/2026
 # Python Version       :
 # Requirements         : Artistic Style Version 3.1
 # Description          : Launch astyle on source files found
