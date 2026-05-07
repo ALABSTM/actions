@@ -93,9 +93,6 @@ def find_files():
     # - GITHUB_SHA: commit SHA that triggered the workflow
     sha_commit_tiggrered_push = os.environ.get("GITHUB_SHA")
 
-    print("GITHUB_SHA          =", repr(sha_commit_tiggrered_push))
-    print("-------------------------------------")
-
     try:        
         output = subprocess.check_output(['git', '-C', src_path, 'show', '--format=', '--name-only', sha_commit_tiggrered_push], stderr=subprocess.STDOUT)
         changed_files = (output.decode("utf-8")).split('\n')
@@ -186,20 +183,9 @@ def main():
     if args.ignore:
         ignore_path = os.path.abspath(args.ignore)
         
-    print("-------------------------------------")
-    print("## From PY file...")
-    print("Source files path:", repr(src_path))
-    print("A-Style ignore file path:", repr(ignore_path))
-    print("A-Style definition file path:", repr(def_path))
-    print("Current Working Directory:", os.getcwd())
-    print("-------------------------------------")
-
-    # show_last_commits()
-    print("-------------------------------------")
     checkPath(src_path, "Source root path checked OK.", "Source root path does not exist!")
     checkPath(def_path, "Code style definition file checked OK.", "Code style definition file does not exist!")
     checkPath(ignore_path, "Ignore file checked OK.", "Ignore file does not exist!")
-    print("-------------------------------------")
     checkAstyle()
     try:
         os.remove(astyle_out_path)
