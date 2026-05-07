@@ -27,6 +27,10 @@ echo "-------------------------------------"
 echo "Python command to run:"
 echo "python3 /scripts/astyle.py -r \"$ROOT_SRC_PATH\" -i \"$IGNORE_LIST_PATH\" -d \"$ASTYLE_DEFINITION_PATH\""
 
+# Bypass the Git’s safe.directory protection...
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+# Call the Python script...
 python3 /scripts/astyle.py -r "$ROOT_SRC_PATH" -i "$IGNORE_LIST_PATH" -d "$ASTYLE_DEFINITION_PATH" || {
   exit 1
 }
