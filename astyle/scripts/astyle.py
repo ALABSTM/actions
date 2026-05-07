@@ -135,6 +135,8 @@ def astyle():
 
     stddout_name = astyle_out_path
 
+    print("List of source files to check:\n", source_list)
+
     for s in source_list:
         cmd[-1] = s
         with open(stddout_name, "a") as stdout:
