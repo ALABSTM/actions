@@ -189,7 +189,7 @@ def main():
     print("Current Working Directory:", os.getcwd())
     print("-------------------------------------")
 
-    show_last_commits()
+    # show_last_commits()
     checkPath(src_path, "Source root path does not exist!")
     checkPath(def_path, "Code style definition file does not exist!")
     checkPath(ignore_path, "Ignore file does not exist!")
